@@ -1,0 +1,24 @@
+@name RLC AB MagPack (EMD Modern)
+@inputs Horn
+@inputs  Brake
+@inputs Notch Dynamics Emergency
+@inputs Reverser
+@persist
+@outputs
+@model models/magtrainslocos/cstands_bg/emd_modern_bg.mdl
+
+# Orignal By TBE, Modded By MRK8A For RLC AB V1.1.3
+
+Stand = entity()
+
+Stand:setBodygroup(6,Horn*2)
+Stand:setBodygroup(1,Reverser+2)
+if(Dynamics == 1){
+    Stand:setBodygroup(3,Notch+Dynamics)
+}
+else{
+    Stand:setBodygroup(2,Notch)
+    Stand:setBodygroup(3,0)
+}
+if(Emergency == 1){Stand:setBodygroup(4,Emergency*11)}else{Stand:setBodygroup(4,Brake*10)}
+
