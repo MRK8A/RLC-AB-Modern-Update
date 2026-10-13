@@ -1,6 +1,6 @@
 
 
-    Welcome to Magnum's Realistic Loco Control E2!
+    Welcome to RLC AB Modern Update!
     Setup Instructions:
     
     Place the E2 onto the back of either the body or a bogie and configure the e2 (see below).
