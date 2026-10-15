@@ -1,7 +1,7 @@
 @name RLC AB MagPack (EMD Modern)
 @inputs Horn
 @inputs  Brake
-@inputs Notch Dynamics Emergency
+@inputs Notch Dynamics Emergency MU_Master
 @inputs Reverser
 @persist
 @outputs
@@ -21,4 +21,4 @@ else{
     Stand:setBodygroup(3,0)
 }
 if(Emergency == 1){Stand:setBodygroup(4,Emergency*11)}else{Stand:setBodygroup(4,Brake*10)}
-
+if(MU_Master == 1){Stand:setBodygroup(1,Reverser+2)}else{Stand:setBodygroup(1,0)}
