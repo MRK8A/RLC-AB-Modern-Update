@@ -1,7 +1,7 @@
-@name RLC AB Modern Update V1.5.2
+@name RLC AB+ (V 1.5.6)
 @inputs Active MU_Master Pod:entity [FrontPlugIn RearPlugIn]:array
-@outputs MPH KPH V Throttle Notch Reverser Brake Dynamics PitchTarget PitchReal [FrontPlugOut RearPlugOut]:array DSINDEX Mul Emergency Mul UnitMPH
-@persist MaxSpeed Mul BrakeMul Dynamul [E O Weld]:entity Diesel_Sounds:array EngineIndeces:array DSINDEX Cnt PitchTarget PitchReal Trig Horsepower
+@outputs MPH KPH V Throttle Notch Reverser Brake Dynamics Emergency PitchTarget PitchReal [FrontPlugOut RearPlugOut]:array DSINDEX 
+@persist MaxSpeed Mul BrakeMul Dynamul [E O Weld]:entity Diesel_Sounds:array EngineIndeces:array DSINDEX Cnt PitchTarget PitchReal Trig Horsepower UnitMPH
 @persist [Wheel_Sound Brake_Sound Reverser_Sound Dyna_Sound Locobrake_On Locobrake_Off Emergancybrake_On Emergancybrake_Off]:string EnginePitches:array Throttle Braking EBraking EParking Parking Spd Reverser THQ RQ EQ BQ DQ  Brake Dynamics
 @persist Startup:string StartupDelay Shutdown:string Driver:entity
 
@@ -25,7 +25,7 @@ entity():setSubMaterial(2,"models/shadertest/shader5")
 |__|\_||_____|\____|    |__|__||_____|    |_____||_____||____|  |__|      |_____||____/     |___|___||__|\_||__|\_|
                                                                                                                    
 
-    Welcome to Magnum's Realistic Loco Control E2!
+    Welcome to RLC AB+!
     Setup Instructions:
     
     Place the E2 onto the back of either the body or a bogie and configure the e2 (see below).
@@ -67,20 +67,20 @@ entity():setSubMaterial(2,"models/shadertest/shader5")
     
     Controls["EmergencyBrake",string] = "rshift"
     
-    UnitMPH = 45 #Top Speed in Mile Per Hour
-    Horsepower = 1500    #Horsepower
-    Dynamul = 0 #Force Multiplier for the Dynamic brakes
+    UnitMPH = 65 #Top Speed in Mile Per Hour
+    Horsepower = 3000    #Horsepower
+    Dynamul = 1 #Force Multiplier for the Dynamic brakes
     LBE = 1 #Enables extra locomotive braking, only set this to 1 if you have trouble stopping really short trains.
     BrakeMul = 1600 #Force multiplier for the Extra Locomotive Brakes. If the above variable is set to 0, this does nothing.
     
     Filepath = "gsgtrainsounds"
-    Primemover = "emd645v12"
+    Primemover = "emd645e3bv16"
     
     #Sounds, anyone?
-    Startup = Filepath+"/"+Primemover+"/startup.wav"
-    Shutdown = Filepath+"/"+Primemover+"/shutdown.wav"
+    Startup = Filepath+"/"+Primemover+"/startup_high.wav"
+    Shutdown = Filepath+"/"+Primemover+"/shutdown_high.wav"
     
-    StartupDelay = 10
+    StartupDelay = 6
     
     Diesel_Sounds = array(
     Filepath+"/"+Primemover+"/idle.wav",
@@ -150,7 +150,7 @@ entity():setSubMaterial(2,"models/shadertest/shader5")
     runOnChat(1)
     Cnt = Diesel_Sounds:count()
     MaxSpeed = UnitMPH*17.6
-    Mul = Horsepower/9.8
+    Mul = Horsepower/10
    
     
 }
@@ -178,8 +178,8 @@ event keyPressed(Driver:entity,Key:string,Down:number,Bind:string){
 if(~Active&!Active&Shutdown!=""){E:soundPlay("die",0,Shutdown)}
 
 if(Active){
-    if(UnitMPH <= MPH){Mul = 0}
-    else{Mul = Horsepower/9.8}
+    if(UnitMPH <= MPH & Dynamics == 0){Mul = 0}
+    else{Mul = Horsepower/10}
     
     #Ignition
     if(~Active){
@@ -220,7 +220,7 @@ if(Active){
             DSINDEX = EngineIndeces[Notch+1,number]+1
             if(($DSINDEX)!=0){
                 soundPlay(0,0,Diesel_Sounds[DSINDEX,string])
-            }
+            } 
             
             PitchTarget = EnginePitches[Notch+1,number]
             if($Throttle > 0){
@@ -564,4 +564,3 @@ if(Active){
 
     
 }
-
