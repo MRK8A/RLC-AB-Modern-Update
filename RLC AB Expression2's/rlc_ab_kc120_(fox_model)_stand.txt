@@ -1,0 +1,16 @@
+@name RLC AB KC120 (fox model) Stand
+@inputs Horn Bell
+@inputs  Brake Reverser
+@inputs Notch Dynamics Emergency MU_Master
+@inputs Reverser
+@persist
+@outputs
+@model models/fox/ge_d8_40bw_kc120.mdl
+# Orignal By TBE, Modded By MRK8A For RLC AB V1.1.3
+
+Stand = entity()
+Stand:setBodygroup(5,Horn*1)
+Stand:setBodygroup(6,Bell*1)
+if(Dynamics == 1){Stand:setBodygroup(2,Notch+Dynamics+9)}else{Stand:setBodygroup(2,Notch)}
+if(Emergency == 1){Stand:setBodygroup(3,Emergency*11)}else{Stand:setBodygroup(3,Brake*9)}
+if(MU_Master == 1){Stand:setBodygroup(1,Reverser+2)}else{Stand:setBodygroup(1,0)}
